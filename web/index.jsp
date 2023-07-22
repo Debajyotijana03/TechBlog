@@ -28,7 +28,7 @@
     <body> 
 
         <%@include file="normal_navbar.jsp" %>
-        <div class="container-fluid p-0 m-0 banner-background">   
+        <div class="container-fluid p-0 m-0 banner-background ">   
             <div class="jumbotron primary-background text-white">
                 <div class="container">
 

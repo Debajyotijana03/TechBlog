@@ -1,19 +1,10 @@
-<%-- 
-    Document   : show_blog_page.jsp
-    Created on : 15-Jul-2023, 12:40:15 pm
-    Author     : DEBAJYOTI
---%>
-<%@page import="com.tech.blog.dao.LikeDao"%>
-<%@page import="java.text.DateFormat"%>
-<%@page import="com.tech.blog.dao.UserDao"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="com.tech.blog.entities.Category"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.tech.blog.helper.ConnectionProvider"%>
 <%@page import="com.tech.blog.dao.PostDao"%>
-<%@page import="com.tech.blog.entities.Post"%>
+<%@page import="com.tech.blog.entities.Message"%>
 <%@page import="com.tech.blog.entities.User"%>
 <%@page errorPage="error_page.jsp" %>
-
 <%
     User user = (User) session.getAttribute("currentUser");
     if (user == null) {
@@ -24,46 +15,18 @@
 
 
 %>
-<%    int postId = Integer.parseInt(request.getParameter("post_id"));
-    PostDao d = new PostDao(ConnectionProvider.getConnection());
-
-    Post p = d.getPostByPostId(postId);
-
-%>
-
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title><%= p.getpTitle()%></title>
+        <title>JSP Page</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"><!-- comment -->
         <link href="css/mystyle.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <style>
             .banner-background{
                 clip-path : polygon(30% 0%, 100% 0, 100% 30%, 100% 96%, 62% 89%, 30% 98%, 0 91%, 0 0);
-            }
-            .post-title{
-                font-weight: 100;
-                font-size: 30px;
-            }
-            .post-content{
-                font-weight:100 ;
-                font-size: 25px;
-            }
-            .post-date{
-                font-style: italic;
-                font-weight: bold;
-            }
-            .post-user-info{
-                font-size: 20px;
-
-            }
-            .row-user{
-                border: 1px solid #e2e2e2;
-                padding-top: 15px;
             }
             body{
                 background: url(img/photo-bg.jpeg);
@@ -72,14 +35,14 @@
 
 
             }
-
         </style>
-        <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v17.0" nonce="FjpbBcSc"></script>
+
+
+
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark primary-background">
-            <a class="navbar-brand" href="index.jsp"><span class="fa fa-asterisk"></span> Tech Blog</a>
+            <a class="navbar-brand" href="#!"><span class="fa fa-asterisk"></span> Tech Blog</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -87,7 +50,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="profile.jsp"><span class="fa fa-bell"></span> Home<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="admin.jsp"><span class="fa fa-bell"></span> Home<span class="sr-only">(current)</span></a>
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -104,10 +67,17 @@
 
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"> <span class="fa fa-address-book-o"></span>  Contact Us</a>
+                        <a class="nav-link" href="about_us_page.html"> <span class="fa fa-address-book-o"></span>  Contact Us</a>
                     </li>  
-                    </li>
-                   
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#add-cat-modal"> <span class="fa fa-sticky-note"></span>  Add Category</a>
+                    </li> 
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#manage-post-modal"> <span class="fa fa-sticky-note"></span>  Manage Post</a>
+                    </li> 
 
 
 
@@ -128,77 +98,61 @@
                 </form>
             </div>
         </nav>
-        <!-- Main content-->            
-
-        <div class="container">
-            <div class="row my-4">
-                <div class="col md-8 offset-md-2">
-
-                    <div class=" card">
-                        <div class="card-header primary-background text-white">
-                            <h4 class="post-title">
-                                <%=p.getpTitle()%>
-                            </h4>
-                        </div>
-                        <div class="card-body">
-                            <img class="card-img-top my-2" src="blog_pics/<%=p.getpPic()%>" alt="Card image cap">
-                            <div class="row my-3 row-user">
-                                <div class="col-md-8">
-                                    <%
-                                        UserDao udo = new UserDao(ConnectionProvider.getConnection());
-
-                                    %>
-
-                                    <p class="post-user-info"><a href="#!"> <%= udo.getUSerByPostId(p.getUserId()).getName()%></a> is Posted: id <a><%= p.getPid()%></a></p>
-
-
-                                </div>
-                                <div class="col-md-4">
-                                    <p class="post-date"> <%= DateFormat.getDateTimeInstance().format(p.getpDate())%></p>
-                                </div>
-
-                            </div>
-
-                            <p class="post-content"><%=p.getpContent()%></p>
-                            <br>
-                            <br>
-                            <div class="post-code">
-                                <pre><%=p.getpCode()%></pre>
-                            </div>
-                        </div>
-
-                        <div class="card-footer primary-background">
-                            <%
-                            LikeDao ld=new LikeDao(ConnectionProvider.getConnection());
-                            
-                            
-                            
-                            %>    
 
 
 
-                            <a href="#!" onclick="doLike(<%= p.getPid()%>,<%= user.getId()%>)" class="btn btn-outline-light btn-sm"><i class="fa fa-thumbs-o-up"> </i><span class="like-counter"><%= ld.countLikeOnPost(p.getPid()) %></span></a>
-                            <a href="#!" class="btn btn-outline-light btn-sm"><i class="fa fa-commenting-o"> </i><span>15</span></a>
-                        </div>
-                            <div class="card-footer">
-                                <div class="fb-comments" data-href="http://localhost:9494/TechBlog/show_blog_page.jsp?post_id=<%= p.getPid()%>" data-width="" data-numposts="5"></div>
-                            </div>
-
-                    </div>
-                </div>
-
-
-            </div>
 
 
 
+
+        <%
+            Message m = (Message) session.getAttribute("msg");
+            if (m != null) {
+        %>
+        <div class="alert <%=m.getCssClass()%>" role="alert">
+            <%= m.getContent()%>
         </div>
+        <%
+                session.removeAttribute("msg");
+            }
+        %>      
+
+        <!--Main body -->
+        <main>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="list-group">
+                            <a href="#" onclick="getPosts(0, this)" class="c-link list-group-item list-group-item-action active">
+                                All Posts
+                            </a>
+                            <%
+                                PostDao d = new PostDao(ConnectionProvider.getConnection());
+                                ArrayList<Category> list1 = d.getAllCategories();
+                                for (Category cc : list1) {
 
 
+                            %>
+                            <a href="#" onclick="getPosts(<%= cc.getCid()%>, this)" class="c-link list-group-item list-group-item-action"><%=cc.getName()%></a>
+                            <%
+                                }
+                            %>
 
+                        </div> 
+                    </div>
+                    <div class="col-md-8" >
+                        <div class="container text-center" id="loader">
+                            <i class="fa fa-refresh fa-4x fa-spin" ></i>
+                            <h3 class="mt-2">Loading ....</h3>
+                        </div>
+                        <div class="container-fluid" id="post-container">
+                        </div>
+                    </div>
 
-
-
+                </div>
+            </div>
+        </main>
+        <!-- Modal -->
 
 
 
@@ -315,6 +269,18 @@
         </div>
     </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
     <div class="modal fade" id="add-post-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -374,6 +340,109 @@
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="add-cat-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Category For Blogs</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="add-cat-form"  action="AddCatServlet" method="post">
+                    <div class="form-group">
+                        <select class="form-control" name="cid">
+                            <option selected disabled>Check Category</option>
+
+                            <%
+                                PostDao postd2 = new PostDao(ConnectionProvider.getConnection());
+                                ArrayList<Category> list2 = postd2.getAllCategories();
+                                for (Category c : list2) {
+
+
+                            %>
+                            <option  value="<%=c.getCid()%>"><%=c.getName()%></option>
+
+                            <%
+                                }
+                            %>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Category not Present Add your Content Category</label>
+                        <input name="c1Title" type="text" placeholder="Enter Title" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <textarea  name ="c1Desc" placeholder="Enter Descrtiption" class="form-control"></textarea>
+                    </div>
+
+                    <div class="container text-center" >
+                        <button type="submit" class="btn btn-outline-primary">Add</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- Button trigger modal --
+<!-- Modal -->
+<div class="modal fade" id="manage-post-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Manages Post</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="manage-post-form"  action="ManagePostServlet" method="post">
+                      <div class="form-group">
+                        <label>Enter the Post Id You Want to delete </label>
+                        <input name="p1Id" type="number" placeholder="Enter PostId" class="form-control">
+                    </div>
+                    
+                
+            
+            
+                    <div class="container text-center" >
+                        <button type="submit" class="btn btn-outline-primary">Delete</button>
+                    </div>
+            </form>
+            </div>
+            </div>
+        </div>
+    </div>
+                      
+
+
+
+
+
+
+
+
 
 
 
@@ -457,7 +526,7 @@ crossorigin="anonymous"></script>
         $("#post-container").hide()
         $(".c-link").removeClass('active')
         $.ajax({
-            url: "load_post.jsp",
+            url: "LoadPost_admin.jsp",
             data: {cid: catId},
             success: function (data, textStatus, jqXHR) {
                 console.log(data);
@@ -479,6 +548,84 @@ crossorigin="anonymous"></script>
     })
 
 </script>
+<script>
+    $(document).ready(function (e) {
+        $("#add-cat-form").on("submit", function (event) {
+            //this code gets called wheen submitted
+            event.preventDefault();
+            console.log("You have submit")
+            let form = new FormData(this);
+
+            $.ajax({
+                url: "AddCatServlet",
+                type: 'POST',
+                data: form,
+                success: function (data, textStaus, jqXHR) {
+                    console.log(data)
+                    if (data.trim() == 'done') {
+
+                        swal("Good job!", "Saved Successfully!", "success");
+                    } else {
+                        swal("Error!", "Something Went Wrong!!", "error");
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    swal("Error!", "Something Went Wrong!!", "error");
+                },
+                processData: false,
+                contentType: false
+            })
+
+
+        })
+
+
+
+    })
+
+
+
+</script>
+<script>
+    $(document).ready(function (e) {
+        $("#manage-post-form").on("submit", function (event) {
+            //this code gets called wheen submitted
+            event.preventDefault();
+            console.log("You have submit")
+            let form = new FormData(this);
+
+            $.ajax({
+                url: "ManagePostServlet",
+                type: 'POST',
+                data: form,
+                success: function (data, textStaus, jqXHR) {
+                    console.log(data)
+                    if (data.trim() == 'done') {
+
+                        swal("Good job!", "Delete Successfully!", "success");
+                    } else {
+                        swal("Error!", "Something Went Wrong!!", "error");
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    swal("Error!", "Something Went Wrong!!", "error");
+                },
+                processData: false,
+                contentType: false
+            })
+
+
+        })
+
+
+
+    })
+
+
+
+</script>
+
+
 
 </body>
 </html>

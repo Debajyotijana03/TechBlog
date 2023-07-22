@@ -74,6 +74,8 @@
             }
 
         </style>
+        <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v17.0" nonce="FjpbBcSc"></script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark primary-background">
@@ -105,9 +107,7 @@
                         <a class="nav-link" href="#"> <span class="fa fa-address-book-o"></span>  Contact Us</a>
                     </li>  
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" data-toggle="modal" data-target="#add-post-modal"> <span class="fa fa-sticky-note"></span>  Add Post</a>
-                    </li> 
+                   
 
 
 
@@ -149,7 +149,7 @@
 
                                     %>
 
-                                    <p class="post-user-info"><a href="#!"> <%= udo.getUSerByPostId(p.getUserId()).getName()%> </a> is Posted:</p>
+                                    <p class="post-user-info"><a href="#!"> <%= udo.getUSerByPostId(p.getUserId()).getName()%></a> is Posted: id <a><%= p.getPid()%></a></p>
 
 
                                 </div>
@@ -180,6 +180,9 @@
                             <a href="#!" onclick="doLike(<%= p.getPid()%>,<%= user.getId()%>)" class="btn btn-outline-light btn-sm"><i class="fa fa-thumbs-o-up"> </i><span class="like-counter"><%= ld.countLikeOnPost(p.getPid()) %></span></a>
                             <a href="#!" class="btn btn-outline-light btn-sm"><i class="fa fa-commenting-o"> </i><span>15</span></a>
                         </div>
+                            <div class="card-footer">
+                                <div class="fb-comments" data-href="http://localhost:9494/TechBlog/show_blog_page.jsp?post_id=<%= p.getPid()%>" data-width="" data-numposts="5"></div>
+                            </div>
 
                     </div>
                 </div>

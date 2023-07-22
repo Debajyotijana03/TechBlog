@@ -74,12 +74,10 @@
             }
 
         </style>
-        <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v17.0" nonce="FjpbBcSc"></script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark primary-background">
-            <a class="navbar-brand" href="index.jsp"><span class="fa fa-asterisk"></span> Tech Blog</a>
+            <a class="navbar-brand" href="#!"><span class="fa fa-asterisk"></span> Tech Blog</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -87,7 +85,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="profile.jsp"><span class="fa fa-bell"></span> Home<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="admin.jsp"><span class="fa fa-bell"></span> Home<span class="sr-only">(current)</span></a>
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -105,10 +103,18 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#"> <span class="fa fa-address-book-o"></span>  Contact Us</a>
-                    </li>  
+                    </li>
+                         <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#add-cat-modal"> <span class="fa fa-sticky-note"></span>  Add Category</a>
+                    </li> 
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#manage-post-modal"> <span class="fa fa-sticky-note"></span>  Manage Post</a>
+                    </li> 
+
+                    
                     </li>
                    
-
 
 
                 </ul>
@@ -180,9 +186,6 @@
                             <a href="#!" onclick="doLike(<%= p.getPid()%>,<%= user.getId()%>)" class="btn btn-outline-light btn-sm"><i class="fa fa-thumbs-o-up"> </i><span class="like-counter"><%= ld.countLikeOnPost(p.getPid()) %></span></a>
                             <a href="#!" class="btn btn-outline-light btn-sm"><i class="fa fa-commenting-o"> </i><span>15</span></a>
                         </div>
-                            <div class="card-footer">
-                                <div class="fb-comments" data-href="http://localhost:9494/TechBlog/show_blog_page.jsp?post_id=<%= p.getPid()%>" data-width="" data-numposts="5"></div>
-                            </div>
 
                     </div>
                 </div>

@@ -73,10 +73,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="modal" data-target="#add-post-modal"> <span class="fa fa-sticky-note"></span>  Add Post</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" data-toggle="modal" data-target="#add-cat-modal"> <span class="fa fa-sticky-note"></span>  Add Category</a>
-                    </li> 
-
+                    
 
 
 
@@ -466,6 +463,7 @@ crossorigin="anonymous"></script>
                     if (data.trim() == 'done') {
 
                         swal("Good job!", "Saved Successfully!", "success");
+                        
                     } else {
                         swal("Error!", "Something Went Wrong!!", "error");
                     }

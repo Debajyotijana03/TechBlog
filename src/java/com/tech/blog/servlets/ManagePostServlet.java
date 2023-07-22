@@ -1,13 +1,19 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
 package com.tech.blog.servlets;
 
-import com.tech.blog.dao.UserDao;
-import com.tech.blog.entities.Message;
+import com.tech.blog.dao.CatDao;
+import com.tech.blog.dao.ManagePostDao;
+import com.tech.blog.dao.PostDao;
+import com.tech.blog.entities.Category;
 import com.tech.blog.entities.User;
 import com.tech.blog.helper.ConnectionProvider;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +23,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author DEBAJYOTI
  */
-public class LoginServlet extends HttpServlet {
+@MultipartConfig
+public class ManagePostServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,47 +40,21 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            
-            
-            String userEmail=request.getParameter("email");
-            String userPassword=request.getParameter("password");
-            
-            UserDao dao=new UserDao(ConnectionProvider.getConnection());
-            
-            User u=dao.getUserByEmailAndPassword(userEmail, userPassword);
-            
-            if(u==null){
-  //              out.println("Invalid Details");
-                Message msg=new Message("Invalid Details Try Again!!!","error","alert-danger");
-                HttpSession s=request.getSession();
-                s.setAttribute("msg", msg);
-                
-                response.sendRedirect("login_page.jsp");
-                
+           
+            String p1IdString = request.getParameter("p1Id");
+            int pPid = Integer.parseInt(p1IdString);
+            HttpSession session=request.getSession();
+            User user=(User) session.getAttribute("currentUser");
+           
+            PostDao pd=new PostDao(ConnectionProvider.getConnection());
+            if(pd.deletePostById(pPid)){
+            out.println("done");
+            }else{
+            out.println("error");
             }
-            else if(userPassword.equals("admin")){
-                HttpSession s=request.getSession();
-                s.setAttribute("currentUser", u);
-                response.sendRedirect("admin.jsp");
             }
-            else{
-                HttpSession s=request.getSession();
-                s.setAttribute("currentUser", u);
-                response.sendRedirect("profile.jsp");
-            
-            }
-            
-            
-            out.println("</body>");
-            out.println("</html>");
         }
-    }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

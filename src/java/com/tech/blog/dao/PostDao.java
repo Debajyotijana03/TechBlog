@@ -135,5 +135,20 @@ public class PostDao {
         }
 return  post;
     }
+     public boolean deletePostById(int pId){
+          boolean f=false;
+        try {
+            String q="delete from posts where pid=?";
+            PreparedStatement p=this.con.prepareStatement(q);
+            p.setInt(1, pId);
+            p.executeUpdate();
+            f=true;
+        } catch (Exception e) {
+        
+        e.printStackTrace();
+        }
+        return  f;
+
+    }
 
 }
