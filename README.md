@@ -26,3 +26,4 @@ In today's rapidly evolving world of technology, staying up-to-date with the lat
 **Delete Posts:** Authors also have the option to delete their own posts if they decide to remove a piece of content from the platform.
 ## Snippts of The project
 
+![Image](/ScreenShot/Dashboard.jpg)
