@@ -32,13 +32,13 @@
             <div class="jumbotron primary-background text-white">
                 <div class="container">
 
-                    <h3 class="display-3">Welcome to Tech Blog</h3>
+                    <h3 class="display-3">Welcome to TechShare</h3>
 
                     <p>
-                        A programming language is a system of notation for writing computer programs.[1] Most programming languages are text-based formal languages, but they may also be graphical. They are a kind of computer language.
+                       In today's rapidly evolving world of technology, staying up-to-date with the latest trends, developments, and insights is crucial for every tech enthusiast. But what if there was a dedicated platform that not only keeps you informed but also encourages sharing and collaboration within the tech community? Look no further – we present to you "TechShare," a cutting-edge web application
                     </p>
                     <p>
-                        A programming language is a system of notation for writing computer programs.[1] Most programming languages are text-based formal languages, but they may also be graphical. They are a kind of computer language.
+                       
                     </p>
                     <button class="btn btn-outline-light btn-lg"> <span class="	fa fa-share-square-o"></span>  Start ! its Free</button>
                     <a href="login_page.jsp" class="btn btn-outline-light btn-lg"> <span class="fa fa-user-circle-o fa-spin"></span>  Login</a>
