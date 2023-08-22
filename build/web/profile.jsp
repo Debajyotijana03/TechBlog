@@ -73,7 +73,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="modal" data-target="#add-post-modal"> <span class="fa fa-sticky-note"></span>  Add Post</a>
                     </li>
-                    
+
 
 
 
@@ -115,10 +115,10 @@
 
         <!--Main body -->
         <main>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="list-group">
+            <div class="container-fluid">
+                <div class="row mt-3 mx-2">
+                    <div class="col-md-2">
+                        <div class="list-group mt-4">
                             <a href="#" onclick="getPosts(0, this)" class="c-link list-group-item list-group-item-action active">
                                 All Posts
                             </a>
@@ -136,7 +136,7 @@
 
                         </div> 
                     </div>
-                    <div class="col-md-8" >
+                    <div class="col-md-10" >
                         <div class="container text-center" id="loader">
                             <i class="fa fa-refresh fa-4x fa-spin" ></i>
                             <h3 class="mt-2">Loading ....</h3>
@@ -463,7 +463,7 @@ crossorigin="anonymous"></script>
                     if (data.trim() == 'done') {
 
                         swal("Good job!", "Saved Successfully!", "success");
-                        
+
                     } else {
                         swal("Error!", "Something Went Wrong!!", "error");
                     }

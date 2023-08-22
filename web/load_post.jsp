@@ -5,7 +5,7 @@
 <%@page import="java.util.List"%>
 <%@page import="com.tech.blog.helper.ConnectionProvider"%>
 <%@page import="com.tech.blog.dao.PostDao"%>
-<div class="row">
+<div class="row mt-4" >
     <%
 
         Thread.sleep(500);
@@ -18,14 +18,14 @@
             posts = d.getPostByCatId(cid);
         }
         if (posts.size() == 0) {
-            out.println("No posts in this Category");
+            out.println("<h3 text-white class='display-3 text-center'>No posts in this Category..</h3>");
             return;
         }
         //List<Post> posts=d.getAllPosts();
         for (Post p : posts) {
     %>
-    <div class="col-md-6 mt-2">
-        <div class="card">
+    <div class="col-md-4 ">
+        <div class="card" style="margin: 10px;">
             <img class="card-img-top" src="blog_pics/<%=p.getpPic()%>" alt="Card image cap" style="max-height: 250px;max-width: 100%;width: auto;">
             <div class="card-body">
                 <b><%= p.getpTitle()%></b>
@@ -35,19 +35,18 @@
             <div class="card-footer primary-background text-center ">
                 <a href="show_blog_page.jsp?post_id=<%=p.getPid()%>" class="btn btn-outline-light btn-sm">Read more...</a>
                 <%
-                            LikeDao ld=new LikeDao(ConnectionProvider.getConnection());
-                            
-                            
-                            
-                            %>   
-                <a href="#!" class="btn btn-outline-light btn-sm"><i class="fa fa-thumbs-o-up"> </i><span><%= ld.countLikeOnPost(p.getPid()) %></span></a>
+                    LikeDao ld = new LikeDao(ConnectionProvider.getConnection());
+
+
+                %>   
+                <a href="#!" class="btn btn-outline-light btn-sm"><i class="fa fa-thumbs-o-up"> </i><span><%= ld.countLikeOnPost(p.getPid())%></span></a>
                 <a href="#!" class="btn btn-outline-light btn-sm"><i class="fa fa-commenting-o"> </i><span>15</span></a>
             </div>
         </div>
-   </div>
+    </div>
     <%
         }
 
     %>
-     
+    <script src="js/script.js" type="text/javascript"></script>
 </div>
